@@ -13,7 +13,7 @@ export enum RoutesUri {
 }
 
 const lazyLoad = (path: string) => {
-  return lazy(() => import(`../pages/${path}`));
+  return lazy(() => import(`../../pages/${path}`));
 };
 
 export const routes: Route[] = [
