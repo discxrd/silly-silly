@@ -6,6 +6,6 @@ interface Props {
 
 export function Page({ children }: Props) {
   return (
-    <div className="w-dvw h-dvh bg-black flex overflow-hidden">{children}</div>
+    <div className="w-dvw h-dvh flex overflow-hidden">{children}</div>
   );
 }

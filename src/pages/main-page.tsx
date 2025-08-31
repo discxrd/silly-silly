@@ -2,11 +2,12 @@ import { Page } from "@/components/Page";
 import { AnimalCard } from "@/components/AnimalCard";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { addReaction } from "@/lib/storage";
 
 // placeholders
 const initialCards = [
-  { id: 3, src: "/placeholder/kitty3.png", name: "Cat" },
-  { id: 2, src: "/placeholder/kitty2.png", name: "Cat" },
+  { id: 3, src: "/placeholder/kity3.png", name: "Cat" },
+  { id: 2, src: "/placeholder/kity2.png", name: "Cat" },
   { id: 1, src: "/placeholder/kity.png", name: "Cat" },
 ];
 
@@ -17,9 +18,9 @@ const MainPage = () => {
     const swipedCard = cards[cards.length - 1];
 
     if (direction === "right") {
-      console.log(`User LIKED ${swipedCard.name}`);
+      addReaction(swipedCard.id, 'like');
     } else {
-      console.log(`User DISLIKED ${swipedCard.name}`);
+      addReaction(swipedCard.id, 'dislike');
     }
 
     setCards((prev) => prev.slice(0, prev.length - 1));
