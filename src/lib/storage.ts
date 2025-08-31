@@ -1,21 +1,20 @@
+export type Reaction = "like" | "dislike";
 
-export type Reaction = 'like' | 'dislike';
-
-export interface CatReaction {
-  catId: number;
+export interface AnimalReaction {
+  animalId: number;
   reaction: Reaction;
 }
 
-const REACTIONS_STORAGE_KEY = 'cat-reactions';
+const REACTIONS_STORAGE_KEY = "animal-reactions";
 
-export const addReaction = (catId: number, reaction: Reaction) => {
+export const addReaction = (animalId: number, reaction: Reaction) => {
   const reactions = getReactions();
-  const newReaction: CatReaction = { catId, reaction };
+  const newReaction: AnimalReaction = { animalId: animalId, reaction };
   const updatedReactions = [...reactions, newReaction];
   localStorage.setItem(REACTIONS_STORAGE_KEY, JSON.stringify(updatedReactions));
 };
 
-export const getReactions = (): CatReaction[] => {
+export const getReactions = (): AnimalReaction[] => {
   const storedReactions = localStorage.getItem(REACTIONS_STORAGE_KEY);
   return storedReactions ? JSON.parse(storedReactions) : [];
 };

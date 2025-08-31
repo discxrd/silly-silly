@@ -1,16 +1,16 @@
 import { Page } from "@/components/Page";
-import { getReactions, type CatReaction } from "@/lib/storage";
+import { getReactions, type AnimalReaction } from "@/lib/storage";
 import { useEffect, useState } from "react";
 
 const ReactionsPage = () => {
-  const [reactions, setReactions] = useState<CatReaction[]>([]);
+  const [reactions, setReactions] = useState<AnimalReaction[]>([]);
 
   useEffect(() => {
     setReactions(getReactions());
   }, []);
 
   const handleClearReactions = () => {
-    localStorage.removeItem("cat-reactions");
+    localStorage.removeItem("animal-reactions");
     setReactions([]);
   };
 
@@ -27,7 +27,7 @@ const ReactionsPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {reactions.map((reaction, index) => (
             <div key={index} className="bg-gray-800 p-4 rounded-lg">
-              <p>Cat ID: {reaction.catId}</p>
+              <p>Animal ID: {reaction.animalId}</p>
               <p>Reaction: {reaction.reaction}</p>
             </div>
           ))}
