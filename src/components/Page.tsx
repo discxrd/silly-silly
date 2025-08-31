@@ -5,5 +5,7 @@ interface Props {
 }
 
 export function Page({ children }: Props) {
-  return <div className="w-dvw h-dvh bg-black">{children}</div>;
+  return (
+    <div className="w-dvw h-dvh bg-black flex overflow-hidden">{children}</div>
+  );
 }
