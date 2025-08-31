@@ -20,7 +20,7 @@ const AppRouter = () => {
 
 function App() {
   return (
-    <div className="w-dvw h-dvh bg-black">
+    <div className="w-dvw h-dvh">
       <QueryClientProvider>
         <BrowserRouter>
           <AppRouter />
