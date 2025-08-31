@@ -16,7 +16,10 @@
     "motion": "^12.23.12",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-rough-fiber": "^0.0.8",
     "react-router-dom": "^7.8.2",
+    "rough-react-wrapper": "^1.0.2",
+    "roughjs": "^4.6.6",
     "tailwindcss": "^4.1.12",
     "vite-tsconfig-paths": "^5.1.4"
   },

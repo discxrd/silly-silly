@@ -1,48 +1,74 @@
 import { Page } from "@/components/Page";
 import { AnimalCard } from "@/components/AnimalCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { addReaction } from "@/lib/storage";
-
-// placeholders
-const initialCards = [
-  { id: 3, src: "/placeholder/kity3.png", name: "Cat" },
-  { id: 2, src: "/placeholder/kity2.png", name: "Cat" },
-  { id: 1, src: "/placeholder/kity.png", name: "Cat" },
-];
+import { getCats, likeCat, dislikeCat, type Cat } from "@/lib/api";
 
 const MainPage = () => {
-  const [cards, setCards] = useState(initialCards);
+  const [cards, setCards] = useState<Cat[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [offset, setOffset] = useState(0);
+  const limit = 10;
 
-  const handleSwipeComplete = (direction: "right" | "left") => {
+  useEffect(() => {
+    const fetchCats = async () => {
+      try {
+        setLoading(true);
+        const { data } = await getCats(limit, offset);
+        setCards(data || []);
+        setError(null);
+      } catch (error) {
+        setError("Failed to fetch cats. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCats();
+  }, [offset]);
+
+  const handleSwipeComplete = async (direction: "right" | "left") => {
     const swipedCard = cards[cards.length - 1];
 
-    if (direction === "right") {
-      addReaction(swipedCard.id, 'like');
-    } else {
-      addReaction(swipedCard.id, 'dislike');
+    try {
+      if (direction === "right") {
+        await likeCat(swipedCard.id);
+      } else {
+        await dislikeCat(swipedCard.id);
+      }
+    } catch (error) {
+      console.error("Failed to submit reaction", error);
     }
 
     setCards((prev) => prev.slice(0, prev.length - 1));
+
+    if (cards.length === 1) {
+      setOffset((prev) => prev + limit);
+    }
   };
 
   return (
     <Page>
       <div className="relative flex flex-1 items-center justify-center">
-        <AnimatePresence>
-          {cards.map((card, index) => (
-            <AnimalCard
-              key={card.id}
-              imageSrc={card.src}
-              name={card.name}
-              isTopCard={index === cards.length - 1}
-              stackPosition={cards.length - 1 - index}
-              onSwipeComplete={handleSwipeComplete}
-            />
-          ))}
-        </AnimatePresence>
+        {loading && <p className="text-white">Loading...</p>}
+        {error && <p className="text-red-500">{error}</p>}
+        {!loading && !error && (
+          <AnimatePresence>
+            {cards.map((card, index) => (
+              <AnimalCard
+                key={card.id}
+                imageSrc={card.image}
+                name={card.name}
+                isTopCard={index === cards.length - 1}
+                stackPosition={cards.length - 1 - index}
+                onSwipeComplete={handleSwipeComplete}
+              />
+            ))}
+          </AnimatePresence>
+        )}
 
-        {!cards.length && (
+        {!loading && !error && !cards.length && (
           <motion.div
             className="text-white text-2xl"
             initial={{ opacity: 0 }}
