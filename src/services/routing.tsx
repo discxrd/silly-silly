@@ -13,7 +13,7 @@ export enum RoutesUri {
 }
 
 const lazyLoad = (path: string) => {
-  return lazy(() => import(`../../pages/${path}`));
+  return lazy(() => import(`../pages/${path}`));
 };
 
 export const routes: Route[] = [
@@ -30,6 +30,6 @@ export const routes: Route[] = [
   {
     path: RoutesUri.POST_ANIMAL,
     title: "Post Animal",
-    Component: lazyLoad("post-cat-page"),
+    Component: lazyLoad("post-animal-page"),
   },
 ];

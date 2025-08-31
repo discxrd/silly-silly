@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Suspense } from "react";
 import { Page } from "./Page";
-import { routes } from "@/services/navigation/routes";
+import { routes } from "@/services/routing";
+import { QueryClientProvider } from "@/services/query-client-provider";
 
 const AppRouter = () => {
   return (
@@ -20,9 +21,11 @@ const AppRouter = () => {
 function App() {
   return (
     <div className="w-dvw h-dvh bg-black">
-      <BrowserRouter>
-        <AppRouter />
-      </BrowserRouter>
+      <QueryClientProvider>
+        <BrowserRouter>
+          <AppRouter />
+        </BrowserRouter>
+      </QueryClientProvider>
     </div>
   );
 }
