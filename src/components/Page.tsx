@@ -1,11 +1,9 @@
-import type { ReactNode } from "react";
+import { Outlet } from "react-router-dom";
 
-interface Props {
-  children: ReactNode;
-}
-
-export function Page({ children }: Props) {
+export function Page() {
   return (
-    <div className="w-dvw h-dvh flex overflow-hidden">{children}</div>
+    <div className="w-dvw h-dvh flex overflow-hidden">
+      <Outlet />
+    </div>
   );
 }

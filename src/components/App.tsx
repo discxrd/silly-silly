@@ -1,21 +1,27 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import MainPage from "../pages/main-page";
-import ReactionsPage from "../pages/reactions-page";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Suspense } from "react";
+import { Page } from "./Page";
+import { routes } from "@/services/navigation/routes";
+
+const AppRouter = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route element={<Page />}>
+          {routes.map((route) => (
+            <Route key={route.path} {...route} />
+          ))}
+        </Route>
+      </Routes>
+    </Suspense>
+  );
+};
 
 function App() {
   return (
     <div className="w-dvw h-dvh bg-black">
       <BrowserRouter>
-        <nav className="p-4 bg-gray-800 text-white">
-          <Link to="/" className="mr-4">
-            Home
-          </Link>
-          <Link to="/reactions">Reactions</Link>
-        </nav>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/reactions" element={<ReactionsPage />} />
-        </Routes>
+        <AppRouter />
       </BrowserRouter>
     </div>
   );
