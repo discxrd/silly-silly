@@ -20,13 +20,11 @@ const AppRouter = () => {
 
 function App() {
   return (
-    <div className="w-dvw h-dvh">
-      <QueryClientProvider>
-        <BrowserRouter>
-          <AppRouter />
-        </BrowserRouter>
-      </QueryClientProvider>
-    </div>
+    <QueryClientProvider>
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 }
 

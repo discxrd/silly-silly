@@ -131,7 +131,7 @@ const FileInput = ({ className, placeholder, ...props }: Props) => {
         <span
           className={`truncate ${fileName ? "text-black" : "text-gray-400"}`}
         >
-          {fileName || placeholder || "Выберите файл..."}
+          {fileName || placeholder || "Choose file..."}
         </span>
       </label>
 

@@ -10,18 +10,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.1",
     "@tailwindcss/vite": "^4.1.12",
     "@tanstack/react-query": "^5.85.6",
     "@types/node": "^24.3.0",
     "motion": "^12.23.12",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-hook-form": "^7.62.0",
     "react-rough-fiber": "^0.0.8",
     "react-router-dom": "^7.8.2",
     "rough-react-wrapper": "^1.0.2",
     "roughjs": "^4.6.6",
     "tailwindcss": "^4.1.12",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^5.1.4",
+    "zod": "^4.1.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
