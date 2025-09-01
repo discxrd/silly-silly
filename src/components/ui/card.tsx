@@ -1,11 +1,15 @@
-import { type InputHTMLAttributes, useRef, useEffect, useState } from "react";
+import { type HTMLAttributes, useRef, useEffect, useState } from "react";
 import Rough from "roughjs/bin/rough";
 import { type Options } from "roughjs/bin/core";
 
-const Input = (props: InputHTMLAttributes<HTMLInputElement>) => {
-  const [isFocused, setIsFocused] = useState(false);
+interface Props extends HTMLAttributes<HTMLDivElement> {
+  children?: React.ReactNode;
+  className?: string;
+}
+
+const Card = ({ children, className, ...rest }: Props) => {
   const svgRef = useRef<SVGSVGElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const divRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
   const [seed, setSeed] = useState(Math.random());
 
@@ -15,7 +19,7 @@ const Input = (props: InputHTMLAttributes<HTMLInputElement>) => {
   }, []);
 
   useEffect(() => {
-    const element = containerRef.current;
+    const element = divRef.current;
     if (!element) return;
 
     const observer = new ResizeObserver((entries) => {
@@ -27,7 +31,6 @@ const Input = (props: InputHTMLAttributes<HTMLInputElement>) => {
     });
 
     observer.observe(element);
-
     return () => observer.disconnect();
   }, []);
 
@@ -36,50 +39,29 @@ const Input = (props: InputHTMLAttributes<HTMLInputElement>) => {
       svgRef.current.innerHTML = "";
       const rs = Rough.svg(svgRef.current);
       const options: Options = {
-        fill: "#ffffff66",
-        stroke: isFocused ? "#000" : "#222",
+        stroke: "#000",
         strokeWidth: 2,
-        roughness: 2,
+        roughness: 1.5,
         seed: seed,
       };
       const rect = rs.rectangle(4, 4, size.width - 8, size.height - 8, options);
       svgRef.current.appendChild(rect);
     }
-  }, [size, isFocused, seed]);
+  }, [size, seed]);
 
   return (
     <div
-      ref={containerRef}
-      style={{
-        position: "relative",
-        display: "inline-block",
-        width: "100%",
-        minHeight: "50px",
-      }}
+      ref={divRef}
+      className={`relative inline-block bg-none ${className}`}
+      {...rest}
     >
       <svg
         ref={svgRef}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          pointerEvents: "none",
-        }}
+        className="absolute top-0 left-0 w-full h-full pointer-events-none"
       />
-      <input
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        className="relative z-10 bg-transparent outline-none w-full h-full p-2 text-lg"
-        style={{
-          fontFamily: "'Kalam', cursive",
-          color: "#333",
-        }}
-        {...props}
-      />
+      <div className="relative z-10 h-full w-full">{children}</div>
     </div>
   );
 };
 
-export default Input;
+export default Card;

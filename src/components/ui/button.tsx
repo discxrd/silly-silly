@@ -40,7 +40,7 @@ const Button = ({ children, className, ...rest }: Props) => {
       svgRef.current.innerHTML = "";
       const rs = Rough.svg(svgRef.current);
       const options: Options = {
-        fill: isPressed ? "rgba(0, 0, 0, 0.05)" : "white",
+        fill: isPressed ? "rgba(0, 0, 0, 0.05)" : "#0000ff45",
         stroke: "#000",
         strokeWidth: 2,
         roughness: 1.8,

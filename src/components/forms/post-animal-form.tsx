@@ -34,11 +34,16 @@ export const PostAnimalForm = () => {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="p-4 flex flex-col space-y-4 w-[400px]"
+        className="p-4 flex flex-col space-y-2 w-[400px]"
       >
-        <Input placeholder="Name" {...register("name")} />
-        {errors.name && <Label>Name is required</Label>}
-        <FileInput {...register("image")} />
+        <div>
+          <Input placeholder="Name" {...register("name")} />
+          {errors.name && <Label>Name is required</Label>}
+        </div>
+        <div>
+          <FileInput {...register("image")} />
+          {errors.image && <Label>Image is required</Label>}
+        </div>
         <Button type="submit">Post</Button>
       </form>
     </>

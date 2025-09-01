@@ -85,7 +85,7 @@ const FileInput = ({ className, placeholder, ...props }: Props) => {
       svgRef.current.innerHTML = "";
       const rs = Rough.svg(svgRef.current);
       const options: Options = {
-        fill: "white",
+        fill: "#ffffff66",
         stroke: "#222",
         strokeWidth: 2,
         roughness: 1.8,
