@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Suspense } from "react";
 import { Page } from "./Page";
-import { routes } from "@/services/routing";
+import { routes } from "@/services/navigation";
 import { QueryClientProvider } from "@/services/query-client-provider";
 
 const AppRouter = () => {
